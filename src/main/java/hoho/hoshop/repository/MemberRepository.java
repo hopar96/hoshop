@@ -1,17 +1,8 @@
 package hoho.hoshop.repository;
 
-import hoho.hoshop.domain.Address;
 import hoho.hoshop.domain.Member;
-import hoho.hoshop.domain.Role;
-import hoho.hoshop.service.MemberService;
-import hoho.hoshop.web.MemberForm;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.stereotype.Repository;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import java.util.List;
+import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface MemberRepository extends JpaRepository<Member, Long> {
 

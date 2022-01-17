@@ -7,13 +7,21 @@ spring:
 
   jpa:
     hibernate:
-      ddl-auto: create
+      ddl-auto: validate
     properties:
       hibernate:
         show_sql: true
         format_sql: true
 
+  servlet:
+    multipart:
+      max-file-size: 20MB #파일 한 개당 최대 사이즈
+      max-request-size: 100MB   #요청 당 최대 파일 크기
+
+itemImgLocation: '/Users/hojun/study/hoshop/itemImg/save' #상품 이미지 업로드 경로
+uploadPath: '/Users/hojun/study/hoshop/itemImg'  #리소스 업로드 경로
+
 logging:
   level:
-    org.hivernate.SQL: debug
-    org.hivernate.type: trace
+    org.hibernate.SQL: debug
+    org.hibernate.type: trace

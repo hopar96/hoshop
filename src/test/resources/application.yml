@@ -1,7 +1,7 @@
 spring:
   datasource:
-    url: jdbc:h2:tcp://localhost/~/hoshop
-#    url: jdbc:h2:mem:testdb
+#    url: jdbc:h2:tcp://localhost/~/hoshop
+    url: jdbc:h2:mem:testdb
     username: sa
     password:
     driver-class-name: org.h2.Driver
@@ -13,6 +13,14 @@ spring:
         show_sql: true
         format_sql: true
     open-in-view: false
+
+  servlet:
+    multipart:
+      max-file-size: 20MB #파일 한 개당 최대 사이즈
+      max-request-size: 100MB   #요청 당 최대 파일 크기
+
+itemImgLocation: '/Users/hojun/study/hoshop/itemImg/save' #상품 이미지 업로드 경로
+uploadPath: '/Users/hojun/study/hoshop/itemImg'  #리소스 업로드 경로
 
 logging.level:
   org.hibernate.SQL: debug

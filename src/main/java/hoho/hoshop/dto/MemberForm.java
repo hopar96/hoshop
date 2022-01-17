@@ -1,4 +1,4 @@
-package hoho.hoshop.web;
+package hoho.hoshop.dto;
 
 import lombok.Getter;
 import lombok.Setter;

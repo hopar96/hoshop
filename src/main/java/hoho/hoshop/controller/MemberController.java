@@ -1,11 +1,8 @@
 package hoho.hoshop.controller;
 
-import hoho.hoshop.domain.Address;
 import hoho.hoshop.domain.Member;
-import hoho.hoshop.repository.MemberRepository;
 import hoho.hoshop.service.MemberService;
-import hoho.hoshop.web.MemberForm;
-import lombok.Getter;
+import hoho.hoshop.dto.MemberForm;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -44,7 +41,7 @@ public class MemberController {
             return "member/createMemberForm";
         }
 
-        return "redirect:/";
+        return "redirect:/member/login";
     }
 
     @GetMapping(value = "/login")

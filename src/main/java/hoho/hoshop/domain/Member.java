@@ -1,7 +1,7 @@
 package hoho.hoshop.domain;
 
 import hoho.hoshop.domain.auditing.BaseEntity;
-import hoho.hoshop.web.MemberForm;
+import hoho.hoshop.dto.MemberForm;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.security.crypto.password.PasswordEncoder;
