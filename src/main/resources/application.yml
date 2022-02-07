@@ -5,6 +5,7 @@ spring:
     password:
     driver-class-name: org.h2.Driver
 
+
   jpa:
     hibernate:
       ddl-auto: validate
@@ -18,8 +19,8 @@ spring:
       max-file-size: 20MB #파일 한 개당 최대 사이즈
       max-request-size: 100MB   #요청 당 최대 파일 크기
 
-itemImgLocation: '/Users/hojun/study/hoshop/itemImg/save' #상품 이미지 업로드 경로
-uploadPath: '/Users/hojun/study/hoshop/itemImg'  #리소스 업로드 경로
+itemImgLocation: '/Users/hojun/study/hoshop/item' #상품 이미지 업로드 경로
+uploadPath: file:///Users/hojun/study/hoshop/ #리소스 경로
 
 logging:
   level:

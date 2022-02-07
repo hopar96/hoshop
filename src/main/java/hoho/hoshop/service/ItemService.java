@@ -4,9 +4,13 @@ import hoho.hoshop.domain.item.Item;
 import hoho.hoshop.domain.item.ItemImg;
 import hoho.hoshop.dto.ItemFormDto;
 import hoho.hoshop.dto.ItemImgDto;
+import hoho.hoshop.dto.ItemSearchDto;
+import hoho.hoshop.dto.MainItemDto;
 import hoho.hoshop.repository.ItemImgRepository;
 import hoho.hoshop.repository.ItemRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -82,7 +86,7 @@ public class ItemService {
     }
 
     public Long updateItem(ItemFormDto itemFormDto, List<MultipartFile> itemImgFileList)
-        throws Exception {
+            throws Exception {
         Item item = itemRepository.findById(itemFormDto.getId())
                 .orElseThrow(EntityExistsException::new);
         item.updateItem(itemFormDto);
@@ -94,4 +98,13 @@ public class ItemService {
         return item.getId();
     }
 
+    @Transactional(readOnly = true)
+    public Page<Item> getAdminItemPage(ItemSearchDto itemSearchDto, Pageable pageable) {
+        return itemRepository.getAdminItemPage(itemSearchDto, pageable);
+    }
+
+    @Transactional(readOnly = true)
+    public Page<MainItemDto> getMainItemPage(ItemSearchDto itemSearchDto, Pageable pageable) {
+        return itemRepository.getMainItemPage(itemSearchDto, pageable);
+    }
 }

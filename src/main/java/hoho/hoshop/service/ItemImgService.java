@@ -42,7 +42,6 @@ public class ItemImgService {
 
     public void updateItemImg(Long itemImgId, MultipartFile itemImgFile) throws Exception {
 
-
         //상품 이미지를 수정했다면
         if (!itemImgFile.isEmpty()) {
             ItemImg savedItemImg = itemImgRepository.findById(itemImgId)

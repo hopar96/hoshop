@@ -1,5 +1,6 @@
 package hoho.hoshop.dto;
 
+import com.querydsl.core.annotations.QueryProjection;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -7,9 +8,18 @@ import lombok.Setter;
 public class MainItemDto {
 
     private Long id;
-    private String itemName;
+    private String itemNm;
     private String itemDetail;
     private String imgUrl;
     private Integer price;
 
+    @QueryProjection
+    public MainItemDto(Long id, String itemNm, String itemDetail,
+                       String imgUrl, Integer price) {
+        this.id = id;
+        this.itemNm = itemNm;
+        this.itemDetail = itemDetail;
+        this.imgUrl = imgUrl;
+        this.price = price;
+    }
 }

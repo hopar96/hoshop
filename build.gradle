@@ -1,8 +1,14 @@
+buildscript {
+	ext{
+		queryDslVersion = "5.0.0"
+	}
+}
+
 plugins {
 	id 'org.springframework.boot' version '2.6.1'
 	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
 	id 'java'
-	id "com.ewerk.gradle.plugins.querydsl" version "1.0.10"
+	id 'com.ewerk.gradle.plugins.querydsl' version '1.0.10'
 }
 
 group = 'hoho'
@@ -27,7 +33,11 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-security'
 	implementation 'org.springframework.security:spring-security-test'
 	implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity5'
-	implementation 'com.querydsl:querydsl-jpa'
+	implementation 'nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect:2.5.1'
+
+	implementation "com.querydsl:querydsl-jpa:${queryDslVersion}"
+	implementation "com.querydsl:querydsl-apt:${queryDslVersion}"
+	
     implementation 'junit:junit:4.13.1'
 	implementation 'org.modelmapper:modelmapper:2.3.9'
     compileOnly 'org.projectlombok:lombok'
@@ -43,7 +53,7 @@ test {
 
 def querydslDir = "$buildDir/generated/querydsl"
 
-querydsl {
+querydsl{
 	jpa = true
 	querydslSourcesDir = querydslDir
 }
@@ -52,10 +62,14 @@ sourceSets {
 	main.java.srcDir querydslDir
 }
 
-configurations {
+compileQuerydsl{
+	options.annotationProcessorPath = configurations.querydsl
+}
+
+configurations{
+	compileOnly{
+		extendsFrom annotationProcessor
+	}
 	querydsl.extendsFrom compileClasspath
 }
 
-compileQuerydsl {
-	options.annotationProcessorPath = configurations.querydsl
-}
