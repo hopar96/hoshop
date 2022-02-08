@@ -56,7 +56,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .permitAll();
     }
 
-    /*@Override
+   /* @Override
     public void configure(WebSecurity web) throws Exception{
         web.ignoring()
                 .mvcMatchers("/images/**")

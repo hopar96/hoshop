@@ -25,6 +25,7 @@ public class ItemRepositoryCustomImpl implements ItemRepositoryCustom {
 
     //생성자 DI를 통해서 EntityManager 주입
     public ItemRepositoryCustomImpl(EntityManager em) {
+
         this.queryFactory = new JPAQueryFactory(em);
     }
 
@@ -74,13 +75,19 @@ public class ItemRepositoryCustomImpl implements ItemRepositoryCustom {
                 .limit(pageable.getPageSize()) //한 번에 가져올 최대 개수를 지정
                 .fetch(); //fetchResults()대신 fetch() 사용
 
+        Long total = queryFactory
+                .selectFrom(QItem.item)
+                .where(regDtsAfter(itemSearchDto.getSearchDateType()),
+                        searchSellStatusEq(itemSearchDto.getSearchSellStatus()),
+                        searchByLike(itemSearchDto.getSearchBy(), itemSearchDto.getSearchQuery()))
+                        .stream().count();
 //        //조회 대상 리스트 결과
 //        List<Item> content = results.getResults();
 //
 //        //조회 대상 리스트의 개수
 //        long total = results.getTotal();
 
-        return new PageImpl<>(results, pageable, results.size());
+        return new PageImpl<>(results, pageable, total);
     }
 
     // 검색어가 포함된 상품 조회 조건 BooleanExpression
