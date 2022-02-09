@@ -19,8 +19,10 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.thymeleaf.util.StringUtils;
 
 import javax.persistence.EntityExistsException;
+import javax.persistence.EntityNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -71,5 +73,26 @@ public class OrderService {
             orderHistDtos.add(orderHistDto);
         }
         return new PageImpl<OrderHistDto>(orderHistDtos, pageable, totalCount);
+    }
+
+    @Transactional(readOnly = true)
+    public boolean validateOrder(Long orderId, String id) {
+
+        //주문 취소 요청 유저
+        Member curMember = memberRepository.findById(id);
+
+        //상품을 주문한 유저
+        Order order = orderRepository.findById(orderId).orElseThrow(EntityNotFoundException::new);
+        Member saveMember = order.getMember();
+
+        if (!StringUtils.equals(curMember.getId(), saveMember.getId())) {
+            return false;
+        }
+        return true;
+    }
+
+    public void cancelOrder(Long orderId) {
+        Order order = orderRepository.findById(orderId).orElseThrow(EntityNotFoundException::new);
+        order.cancelOrder();
     }
 }
